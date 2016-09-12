@@ -1,0 +1,29 @@
+<div class="faveBox" ng-controller="faveCtrl">
+	<div class="saveQuery" style="display: none">
+		<div class="saveQueryButton" title="Save query" ng-click="fave.qSelected = !fave.qSelected; focus()" 
+			sap-focus ng-class="{ selected: fave.qSelected }">
+			<svg width="20" height="18">
+				<g transform="scale(1.8)">
+					<polygon points="0,0 4,4 4,10 6,10 6,4 10,0" class="saveQueryIcon"></polygon>
+				</g>
+			</svg>
+		</div>
+		<div class="blur" ng-show="fave.qSelected" ng-click="fave.qSelected = false"></div>
+		<div class="saveQueryDropdown" ng-show="fave.qSelected">
+			<form name="queryForm">
+				<section class="formRow">
+					<input type="text" class="textBox" id="queryName" name="queryName" ng-model="fave.queryName" placeholder="Enter Query Name" ng-required="true" 
+						ng-class="{ error: fave.err }" ng-focus="fave.err = false">
+				</section>
+				<input type="button" value="Save" ng-click="saveQuery(true, queryForm, fave, grid)" class="btn btn-success primaryButton">
+				<input type="button" class="btn btn-default secondaryButton" value="Delete" ng-click="saveQuery(false, queryForm, fave, grid)">
+			</form>
+		</div>
+	</div>
+
+	<span title="Save page to favorites" class="fave" 
+		ng-click="fave.selected = !fave.selected; saveFave(fave.selected)" ng-class="{ selected: fave.selected }"></span>
+	<a href="#" class="link" ng-click="$event.preventDefault(); fave.selected = !fave.selected; saveFave(fave.selected)">
+		<span ng-if="!fave.selected">Add to Favorites</span><span ng-if="fave.selected">Remove from Favorites</span></a>
+
+</div>

@@ -1,0 +1,53 @@
+<div class="formContainer">
+<form name="requestForm">
+	<section class="steps" ng-if="reqForm.sel <= reqForm.steps.length">
+		<div class="stepBlock" ng-repeat="step in reqForm.steps">
+			<div class="next" ng-if="$index" ng-class="{ selected: reqForm.sel >= $index + 1 }"></div>
+			<div class="stepContainer" ng-class="{ done: reqForm.sel > $index + 1, selected: reqForm.sel === $index + 1 }" ng-click="prev(reqForm, $index + 1)">
+				<span class="stepDesc">{{::step.label}}</span>
+				<div class="step">{{$index + 1}}</div>
+			</div>
+		</div>
+	</section>
+	<section class="stepContent">
+		<h2 ng-if="reqForm.sel <= reqForm.steps.length">Step {{reqForm.sel}}</h2>
+		<h2 class="successTitle" ng-if="reqForm.sel > reqForm.steps.length">Request Submitted</h2>
+		<section class="buttonContainer" ng-if="reqForm.sel <= reqForm.steps.length">
+			<button class ="prevButton btn btn-default" ng-if="reqForm.sel > 1" ng-click="prev(reqForm, reqForm.sel - 1)">Previous</button>
+			<button class ="nextButton btn" ng-class="{ 'btn-default': reqForm.sel < reqForm.steps.length, 'btn-success': reqForm.sel === reqForm.steps.length }" 
+				ng-click="next(reqForm, reqForm.sel, requestForm, reqForm.content.nav_button.post)">{{reqForm.content.nav_button.label}}</button>
+		</section>
+		<div class="panel">
+			<header class="panelHeader">
+				<h4>{{reqForm.content.header}}</h4>
+			</header>
+			<section class="panelContent" ng-if="reqForm.content.id === 'request_confirm'">
+				<table>
+				<tr ng-repeat="(key, val) in reqForm.review">
+					<td class="formCell"><label class="panelLabel">{{::key}}</label></td>
+					<td class="formCell">{{::val.sel}}</td>	
+				</tr>
+				</table>
+			</section>
+			<section class="panelContent" ng-if="reqForm.content.description">
+				<section class="instr panelDescription">{{reqForm.content.description}}</section>
+				<p ng-if="reqForm.sel > reqForm.steps.length"><a href="#" class="link" ng-click="reload($event)">Submit another request</a></p>
+			</section>
+			<section class="panelContent" ng-if="reqForm.content.fieldset.length && reqForm.content.id !== 'solution_records'">
+				<table>
+				<tr ng-repeat="io in reqForm.content.fieldset" ng-include="reqForm.VIEW_PATH.FORM_ELEM"></tr>
+				</table>
+			</section>
+			<section class="panelContent" ng-if="reqForm.content.fieldset.length && reqForm.content.id === 'solution_records'" ng-include="'bin/grid/grid.html'">
+			</section>
+		</div>
+		<section ng-if="reqForm.sel <= reqForm.steps.length">
+			<button class ="prevButton btn btn-default" ng-if="reqForm.sel > 1" ng-click="prev(reqForm, reqForm.sel - 1)">Previous</button>
+			<button class ="nextButton btn"  ng-class="{ 'btn-default': reqForm.sel < reqForm.steps.length, 'btn-success': reqForm.sel === reqForm.steps.length }" 
+				ng-click="next(reqForm, reqForm.sel, requestForm, reqForm.content.nav_button.post)">{{reqForm.content.nav_button.label}}</button>
+		</section>
+	</section>
+</form>
+<section ng-include="VIEW_PATH.FOOTER"></section>
+
+</div>

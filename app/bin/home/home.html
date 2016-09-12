@@ -1,0 +1,24 @@
+<div class="container body">
+	<div class="row row-offcanvas row-offcanvas-right">
+        <div class="col-xs-12 col-sm-9">
+			<div sap-carousel></div>
+
+			<div class="row main">
+				<h3>Views &amp; Data</h3>
+				<div class="col-xs-6 col-lg-4 homePanel" ng-repeat="(category, items) in main.menuItems">
+					<h4 class="hHeader">{{category}}</h4>
+					<p class="groupPanel">
+						<a ng-repeat="menu in items" class="btn btn-default homeButton" href="#" 
+							ng-if="!menu.disable" ng-click="routeTo($event, menu)" title="{{menu.label}}"><span class="groupItemLabel">{{menu.label}}</span> <span class="go">&raquo;</span></a>
+						<span ng-repeat="menu in items" class="btn btn-default disabled" ng-if="menu.disable">{{menu.label}}</span>
+					</p>
+				</div><!--/.col-xs-6.col-lg-4-->
+			</div><!--/row-->
+        </div><!--/.col-xs-12.col-sm-9-->
+
+		<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" 
+			ng-include="VIEW_PATH.INFO_BOARD"></div>
+
+	</div><!--/row-->
+	<section ng-include="VIEW_PATH.FOOTER"></section>
+</div><!--/.container-->

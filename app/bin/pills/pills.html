@@ -1,0 +1,26 @@
+<div class="gridContainer pills">
+	<section class="faveSection pills" ng-include="VIEW_PATH.FAVE"></section>
+	<ul class="nav nav-pills">
+		<li role="presentation" ng-class="{ active: getLabel($index, pill, pills) }" ng-repeat="pill in pills.data.pills">
+			<a href="#" ng-click="routeToPill($event, pill, $index)">{{pill.label}}</a>
+		</li>
+	</ul>
+	
+	<section ui-view class="content"></section>
+	<section ng-include="VIEW_PATH.FOOTER"></section>
+</div><!--/.container-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

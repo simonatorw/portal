@@ -1,0 +1,58 @@
+<td class="formCell" ng-if="io.label"><label class="panelLabel" for="{{::io.id}}">{{::io.label}}</label></td>
+<td class="formCell">
+	<input ng-if="io.type === 'radio'" type="{{::io.type}}" name="{{::io.name}}" id="{{::io.id}}" ng-model="reqForm.fields[io.name]" 
+		ng-required="io.required" ng-init="setSelected(io.selected ? io.value : null, null, reqForm, io)" ng-value="io.value">
+	<input ng-if="io.type === 'text' || io.type === 'spinbox'" 
+		type="{{::(io.type === 'text' ? io.type : 'number')}}" name="{{::io.id}}" 
+		id="{{::io.id}}" ng-model="reqForm.fields[io.name]" ng-init="setSelected(io.value, null, reqForm, io)" 
+		ng-required="io.required" class="textBox {{io.type}}" ng-keydown="search(reqForm.fields[io.name], reqForm, io)" 
+		ng-click="search(reqForm.fields[io.name], reqForm, io)" ng-readonly="io.readonly" min="{{io.min}}" max="{{io.max}}" 
+		step="{{io.step}}" ng-class="{ readonly: io.readonly }" placeholder="{{io.placeholder}}">
+	<div class="blur" ng-show="reqForm.showSearchResults" ng-click="reqForm.showSearchResults = false"></div>
+	<div ng-cloak class="searchDropdown" ng-if="reqForm.searchResults.length && reqForm.showSearchResults">
+		<ul class="searchList">
+			<li ng-repeat="searchItem in reqForm.searchResults"><a href="#" class="searchItem host" 
+				ng-click="$event.preventDefault(); reqForm.fields[io.name] = searchItem; reqForm.showSearchResults = false">{{searchItem}}</a></li>
+		</ul>
+	</div>
+	<input ng-if="io.type === 'timepicker'" type="number" name="{{::io.id}}" 
+		id="{{::io.id}}" ng-model="reqForm.fields[io.name].h" 
+		ng-init="setSelected(io.value, null, reqForm, io)" 
+		ng-required="io.required" class="textBox spinbox" 
+		ng-readonly="io.readonly" min="0" max="23" 
+		ng-class="{ readonly: io.readonly }" placeholder="HH">
+	<label ng-if="io.type === 'timepicker'" class="panelLabel time">:</label>
+	<input ng-if="io.type === 'timepicker'" type="number" name="{{::io.id}}" 
+		id="{{::io.id}}" ng-model="reqForm.fields[io.name].m" 
+		ng-init="setSelected(io.value, null, reqForm, io)" 
+		ng-required="io.required" class="textBox spinbox" 
+		ng-readonly="io.readonly" min="0" max="59" 
+		ng-class="{ readonly: io.readonly }" placeholder="mm"> 
+	<label ng-if="io.type === 'timepicker'" class="panelLabel">PST</label>
+	<input ng-if="io.type === 'checkbox'" type="checkbox" name="{{::io.id}}" 
+		id="{{::io.id}}" ng-model="reqForm.fields[io.name]" 
+		ng-init="setSelected(io.value, null, reqForm, io)" 
+		ng-required="io.required" ng-readonly="io.readonly" 
+		ng-class="{ readonly: io.readonly }" ng-value="io.value">
+	<input ng-if="io.type === 'datepicker'" type="text" name="{{::io.id}}" 
+		id="{{::io.id}}" ng-model="reqForm.fields[io.name]" 
+		ng-init="setSelected(io.value, null, reqForm, io)" 
+		ng-required="io.required" class="textBox" 
+		ng-readonly="io.readonly" 
+		ng-class="{ readonly: io.readonly }" placeholder="{{io.placeholder}}" sap-datepicker>		
+	<textarea ng-if="io.type === 'textarea'" name="{{::io.id}}" class="formTextArea" ng-class="{ readonly: io.readonly }" 
+		id="{{::io.id}}" ng-model="reqForm.fields[io.name]" ng-required="io.required" ng-readonly="io.readonly" 
+		ng-init="setSelected(io.value, null, reqForm, io)" placeholder="{{io.placeholder}}" 
+		maxlength="{{io.maxlength ? io.maxlength : -1}}">
+	</textarea>
+	<select ng-if="io.type === 'selectlist'" name="{{::io.id}}" id="{{::io.id}}" 
+		ng-model="reqForm.fields[io.name]" ng-disabled="io.readonly" 
+		ng-required="io.required" class="combo" ng-class="{ readonly: io.readonly }">
+		<option ng-repeat="(key, val) in io.list track by key" value="{{key}}" ng-init="setSelected(io, key, reqForm, io)">
+		{{val}}</option>
+	</select>
+	<span ng-if="io.required && !io.readonly" class="requiredField">(Required)</span>
+	<span ng-if="io.maxlength">(Max {{io.maxlength}} characters)</span>
+	<span ng-if="io.readonly">(Read-only)</span>
+</td>
+<td class="formCell"><label for="{{::io.id}}" class="panelLabel instr">{{::io.description}}</label></td>

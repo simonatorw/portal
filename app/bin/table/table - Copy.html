@@ -1,0 +1,28 @@
+<div class="gridContainer" ng-controller="tableCtrl">
+	<section ng-repeat="t in table.list" class="tableSection" ng-class="{ col: table.list.length > 1 }">
+		<h2>{{t.title}}</h2><a href="#" ng-if="t.report.length" class="mail" title="Email Report" ng-click="routeTo($event, t.report[0])"></a>
+		<table class="dataTable">
+		<tr ng-repeat="(key, value) in t.data">
+			<td class="dataLabel">{{key}}</td><td>{{value}}</td>
+		</tr>
+		</table>
+	</section>
+	<div style="clear: left"></div>
+	<section ng-if="main.state === STATES.PILLS_CHILD && $index < pills.data.pills[pills.currentIndex].data.length - 1" class="divider"></section>
+	<section ng-include="VIEW_PATH.FOOTER" ng-if="main.state !== STATES.PILLS_CHILD"></section>
+</div><!--/.container-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,35 @@
+<div class="gridContainer" ng-controller="gridCtrl">
+	<h2 ng-if="main.state === STATES.PILLS_CHILD">{{grid.title}}</h2>
+	<section id="search">
+		<section ng-if="main.state !== STATES.PILLS_CHILD && !reqForm" class="faveSection" ng-include="VIEW_PATH.FAVE"></section>
+		<form>
+			<div id="searchBox">
+				<input type="text" placeholder="Search Table" id="searchText" class="textBox" ng-model="grid.searchTerm" ng-change="setFilter(grid.searchTerm)">
+				<span class="clearIcon" ng-click="grid.searchTerm = ''; setFilter(grid.searchTerm)"></span>
+				<span class="export" sap-export title="Export to CSV" ng-if="!reqForm"></span>
+				<span ng-if="grid.import.length" class="import" sap-import title="Import CSV"></span>
+				<a href="#" class="insertRow" ng-if="grid.insert.length" ng-click="addRow($event, grid.insert[0].data_id)" title="{{grid.insert[0].label}}"></a>
+				<a href="#" class="mail" ng-if="grid.report.length" ng-click="routeTo($event, grid.report[0])" title="Email Report"></a>
+				<a ui-sref="advSearch({ panel: 2 })" class="searchConfig" ng-if="main.currentId === 'snapshot_all,,all'" title="Search Configuration Detail"></a>
+			</div>
+		</form>
+	</section>
+	<div ag-grid="gridOptions" class="ag-blue gridView" sap-grid-events></div>
+	<footer class="gridFooter">{{grid.count}} rows</footer>
+	<section ng-if="main.state === STATES.PILLS_CHILD && $index < pills.data.pills[pills.currentIndex].data.length - 1" class="divider"></section>
+	<section ng-include="VIEW_PATH.FOOTER" ng-if="main.state !== STATES.PILLS_CHILD"></section>
+</div><!--/.container-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+

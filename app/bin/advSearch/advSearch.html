@@ -1,0 +1,22 @@
+<div class="formContainer">
+<form name="searchForm">
+	<a href="#" class="link" ng-click="goBack($event)">&lt; Back</a>
+	<h2>Advanced Search</h2>
+	<div class="panel" ng-repeat="panel in advSearch.content">
+		<header class="panelHeader" ng-class="{ expand: !advSearch['grp' + panel.group], collapse: advSearch['grp' + panel.group] }" 
+			ng-click="togglePanel(advSearch, panel.group, advSearch.content.length)">
+			<h4>{{::panel.header}}</h4>
+		</header>
+		<section class="panelContent" ng-if="advSearch['grp' + panel.group]">
+			<section ng-if="panel.description" class="instr panelDescription">{{::panel.description}}</section>
+			<table>
+			<tr ng-repeat="io in panel.fieldset" ng-include="reqForm.VIEW_PATH.FORM_ELEM"></tr>
+			</table>
+		</section>
+	</div>
+	<section>
+		<button class ="btn btn-success" ng-click="search(searchForm.$valid, advSearch, reqForm)" ng-disabled="isCollapsed(advSearch)">Search</button>
+	</section>
+</form>
+</div>
+<section ng-include="VIEW_PATH.FOOTER" ng-if="main.state !== STATES.PILLS_CHILD"></section>

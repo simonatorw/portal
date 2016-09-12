@@ -1,0 +1,14 @@
+<div ng-controller="infoBoardCtrl">
+	<h3>Information Board</h3>
+	<div class="col-xs-6 infoPanel blue{{$index}}" ng-repeat="groups in infoBoard.data">
+	<div ng-repeat="(key, panels) in groups">
+		<h4 class="ibHeader">{{key}}</h4>
+		<a class="btn btn-default" href="#" role="button" ng-repeat="panel in panels">
+			<section ng-repeat="(key, val) in panel">
+				<b>{{key}}</b> {{val}}
+			</section>
+		</a>
+		<p ng-if="!panels.length">No issues</p>
+	</div>
+	</div><!--/.col-xs-6.col-lg-4-->
+</div>

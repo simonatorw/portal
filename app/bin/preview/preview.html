@@ -1,0 +1,16 @@
+<section class="defaultContainer">
+	<h2>{{preview.data.title}}</h2>
+	<p>{{preview.data.content_title}}</p>
+	<ol>
+		<li ng-repeat="item in preview.data.data">
+			<p><b>{{item.question}}</b></p>
+			<p ng-bind-html="parseLinks(item.answer)"></p>
+			<p>
+			<ul ng-if="item.list">
+				<li ng-repeat="listItem in item.list" ng-bind-html="parseLinks(listItem)"></li>
+			</ul>
+			</p>
+		</li>
+	</ol>
+</section>
+<section ng-include="VIEW_PATH.FOOTER" ng-if="main.state !== STATES.PILLS_CHILD"></section>

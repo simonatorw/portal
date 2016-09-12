@@ -1,0 +1,7 @@
+<nav class="tabs" ng-if="!main.home && main.state !== 'advSearch'" ng-controller="tabsCtrl">
+	<ul class="nav nav-tabs">
+		<li ng-class="{ active: isId(main.currentId, tab) }" ng-repeat="tab in tabs.list">
+			<a href="#" ng-click="routeTo($event, tab)" title="{{tab.label}}"><span class="tabLabel">{{tab.label}}</span><span class="remove" ng-click="removeTab($event, main.currentId, tab)"></span></a>
+		</li>
+	</ul>
+</nav>

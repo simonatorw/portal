@@ -1,0 +1,12 @@
+<footer class="mainFooter">
+	<div class="footerContainer" ng-class="{ container: main.state === 'home' }">
+	<section class="footerLinks">
+		<span ng-repeat="item in main.footerItems">
+			<a ng-if="item.href" ng-href="{{item.href}}" class="link">{{item.label}}</a>
+			<a ng-if="!item.href" href="#" class="link" ng-click="routeTo($event, item)">{{item.label}}</a>
+			<span ng-if="$index + 1 < main.footerItems.length">|</span>
+		</span>
+	</section>
+	&copy; 2016
+	</div>
+</footer>
